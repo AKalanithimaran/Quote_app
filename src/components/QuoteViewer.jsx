@@ -4,6 +4,7 @@ import FloatingShareButton from "../components/Shareoption";
 import axios from "axios";
 import { io } from "socket.io-client";
 import { AnimatePresence, motion } from "framer-motion";
+import quotes from "../data/quotes"; 
 
 const AUTO_SLIDE_INTERVAL = 7000;
 
@@ -26,9 +27,12 @@ const variants = {
 };
 
 const QuoteViewer = () => {
-  const [quotes, setQuotes] = useState([]);
+  const [quotes, setQuotes] = useState(defaultQuotes);
+ // const [quotes, setQuotes] = useState([]);
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(0);
+  
+
 
   const timerRef = useRef(null);
 
