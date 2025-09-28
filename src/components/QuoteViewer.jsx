@@ -4,7 +4,7 @@ import FloatingShareButton from "../components/Shareoption";
 import axios from "axios";
 import { io } from "socket.io-client";
 import { AnimatePresence, motion } from "framer-motion";
-import quotes from "../data/quotes"; 
+import quotes from "../datas/quotes";
 
 const AUTO_SLIDE_INTERVAL = 7000;
 
@@ -59,7 +59,7 @@ const QuoteViewer = () => {
       setQuotes(res.data);
       setIndex(0);
     } catch (error) {
-      console.error("Failed to fetch quotes:", error);
+      console.error("Failed to fetch quotes:, using default quotes:", error);
     }
   };
 
