@@ -1,0 +1,246 @@
+/*/src/custom.css */
+
+body {
+  font-family: 'Merriweather', serif;
+  background: linear-gradient(to bottom right, #ffffff, #ffffff);
+  color: #333;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.fancy-shadow {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* /src/styles/custom.css */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInSlow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-in-out both;
+}
+
+.animate-fadeInSlide {
+  animation: fadeInSlide 0.6s ease-out both;
+}
+
+.animate-fadeInSlow {
+  animation: fadeInSlow 1s ease-in both;
+}
+
+/* Optional: Heart animation */
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+/*layout*/
+.animate-bounce-slow {
+  animation: bounce-slow 2s infinite;
+}
+.animate-bounce-slow.reverse {
+  animation-direction: reverse;
+}
+
+/* Fade-in animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in-out both;
+}
+
+.animate-fadeInSlow {
+  animation: fadeIn 1s ease-in-out both;
+}
+
+/* Bounce */
+@keyframes bounceSlow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounceSlow 2s infinite;
+}
+
+.animate-bounce-slow.reverse {
+  animation-direction: reverse;
+}
+
+/* Target 'Like' button inside Liked page and rename it */
+.liked-page .like-button {
+  position: relative;
+  color: #e11d48; /* rose-600 */
+}
+
+.liked-page .like-button::before {
+  content:"💔";
+  position: absolute;
+  inset: 0;
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  margin-right: 2.20rem; 
+}
+
+/* Hide the original text */
+.liked-page .like-button span,
+.liked-page .like-button::after {
+  visibility: hidden;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out both;
+}
+
+/* AddQuotes.css */
+
+/* Font classes */
+.font-sans {
+  font-family: 'Inter', sans-serif;
+}
+
+.font-serif {
+  font-family: 'Merriweather', serif;
+}
+
+/* Custom colors */
+.bg-softGray {
+  background-color: #ffffff;
+}
+
+.text-elegantWhite {
+  color: #000000fe;
+}
+
+.bg-accent {
+  background-color: #6366f1;
+}
+
+.border-accent {
+  border-color: #6366f1;
+}
+
+.ring-accent:focus {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+/* Submit button - flat design */
+.btn-flat {
+  background-color: #6366f1;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  padding: 0.75rem;
+  width: 100%;
+  border: none;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-flat:hover {
+  background-color: #4f46e5;
+}
+
+.btn-flat:active {
+  transform: scale(0.98);
+}
+
+/* Shake animation */
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+.shake {
+  animation: shake 0.4s ease-in-out;
+}
