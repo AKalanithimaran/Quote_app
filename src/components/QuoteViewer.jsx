@@ -36,7 +36,7 @@ const QuoteViewer = () => {
   useEffect(() => {
     fetchQuotes();
 
-    const socket = io("https://quote-api-ebon-ten.vercel.app", {
+    const socket = io("mysql://us7y7q2dqpsunjjh:9RsXkn3P886FvrBiSpTM@bx1hro7vzhrd42deescx-mysql.services.clever-cloud.com:3306/bx1hro7vzhrd42deescx", {
       transports: ["websocket"],
     });
 
@@ -51,7 +51,7 @@ const QuoteViewer = () => {
   // Fetch from API
   const fetchQuotes = async () => {
     try {
-      const res = await axios.get("https://quote-api-ebon-ten.vercel.app/api/quotes/getquote");
+      const res = await axios.get("mysql://us7y7q2dqpsunjjh:9RsXkn3P886FvrBiSpTM@bx1hro7vzhrd42deescx-mysql.services.clever-cloud.com:3306/bx1hro7vzhrd42deescx/api/quotes/getquote");
       setQuotes(res.data);
       setIndex(0);
     } catch (error) {
@@ -77,7 +77,7 @@ const QuoteViewer = () => {
 
   try {
     // Call backend DELETE API
-    await axios.delete(`https://quote-api-ebon-ten.vercel.app/api/quotes/${quoteToDelete.id}`);
+    await axios.delete(`mysql://us7y7q2dqpsunjjh:9RsXkn3P886FvrBiSpTM@bx1hro7vzhrd42deescx-mysql.services.clever-cloud.com:3306/bx1hro7vzhrd42deescx/api/quotes/${quoteToDelete.id}`);
 
     const newQuotes = quotes.filter((_, i) => i !== index);
     setQuotes(newQuotes);
