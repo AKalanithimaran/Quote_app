@@ -16,7 +16,7 @@ const AddQuotes = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:5000/api/quotes/addquote", {
+      const res = await fetch("https://quote-api-ebon-ten.vercel.app/api/quotes/addquote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

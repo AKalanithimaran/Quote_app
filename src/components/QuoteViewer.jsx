@@ -36,7 +36,7 @@ const QuoteViewer = () => {
   useEffect(() => {
     fetchQuotes();
 
-    const socket = io("http://localhost:5000", {
+    const socket = io("https://quote-api-ebon-ten.vercel.app", {
       transports: ["websocket"],
     });
 
@@ -51,7 +51,7 @@ const QuoteViewer = () => {
   // Fetch from API
   const fetchQuotes = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/quotes/getquote");
+      const res = await axios.get("https://quote-api-ebon-ten.vercel.app/api/quotes/getquote");
       setQuotes(res.data);
       setIndex(0);
     } catch (error) {
@@ -77,7 +77,7 @@ const QuoteViewer = () => {
 
   try {
     // Call backend DELETE API
-    await axios.delete(`http://localhost:5000/api/quotes/${quoteToDelete.id}`);
+    await axios.delete(`https://quote-api-ebon-ten.vercel.app/api/quotes/${quoteToDelete.id}`);
 
     const newQuotes = quotes.filter((_, i) => i !== index);
     setQuotes(newQuotes);
