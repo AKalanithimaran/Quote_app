@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import QuoteCard from "../components/QuoteCard";
 import FloatingShareButton from "../components/Shareoption";
+import axios from "axios";
+import { io } from "socket.io-client";
 import { AnimatePresence, motion } from "framer-motion";
-import quotes from "../datas/quotes";  // Your default quotes import
 
 const AUTO_SLIDE_INTERVAL = 7000;
 
@@ -25,10 +26,42 @@ const variants = {
 };
 
 const QuoteViewer = () => {
+  const [quotes, setQuotes] = useState([]);
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(0);
+  
+
+
   const timerRef = useRef(null);
 
+  // Fetch quotes and set up socket
+  useEffect(() => {
+    fetchQuotes();
+
+    const socket = io("https://app-f07ade1a-3741-4ab8-8393-c232b850346b.cleverapps.io", {
+      transports: ["websocket"],
+    });
+
+    socket.on("newQuote", (newQuote) => {
+      setQuotes((prev) => [newQuote, ...prev]);
+      setIndex(0);
+    });
+
+    return () => socket.disconnect();
+  }, []);
+
+  // Fetch from API
+  const fetchQuotes = async () => {
+    try {
+      const res = await axios.get("https://app-f07ade1a-3741-4ab8-8393-c232b850346b.cleverapps.io/api/quotes/getquote");
+      setQuotes(res.data);
+      setIndex(0);
+    } catch (error) {
+      console.error("Failed to fetch quotes:, using default quotes:", error);
+    }
+  };
+
+  // Manual next/prev
   const nextQuote = () => {
     setDirection(1);
     setIndex((prev) => (prev + 1) % quotes.length);
@@ -39,12 +72,30 @@ const QuoteViewer = () => {
     setIndex((prev) => (prev - 1 + quotes.length) % quotes.length);
   };
 
-  const deleteQuote = () => {
-    // Since these are default quotes, deleting them doesn't make sense,
-    // so just alert or skip this functionality.
-    alert("Deleting default quotes is disabled.");
-  };
+  const deleteQuote = async () => {
+  if (quotes.length === 0) return;
 
+  const quoteToDelete = quotes[index];
+
+  try {
+    // Call backend DELETE API
+    await axios.delete(`https://app-f07ade1a-3741-4ab8-8393-c232b850346b.cleverapps.io/api/quotes/${quoteToDelete.id}`);
+
+    const newQuotes = quotes.filter((_, i) => i !== index);
+    setQuotes(newQuotes);
+
+    if (newQuotes.length === 0) {
+      setIndex(0);
+    } else {
+      setIndex((prev) => Math.max(0, prev % newQuotes.length));
+    }
+  } catch (error) {
+    console.error("Failed to delete quote:", error);
+    alert("Failed to delete the quote from the server.");
+  }
+};
+  
+  //Like quote
   const handleLike = () => {
     const likedQuotes = JSON.parse(localStorage.getItem("likedQuotes") || "[]");
     const quote = quotes[index];
@@ -59,6 +110,7 @@ const QuoteViewer = () => {
     }
   };
 
+  // Share quote
   const handleShare = async () => {
     const quote = quotes[index];
     const shareText = `"${quote.text}" — ${quote.author}`;
@@ -79,15 +131,21 @@ const QuoteViewer = () => {
 
   // Auto slide every X seconds
   useEffect(() => {
+    if (quotes.length === 0) return;
+
+    // Clear previous interval
+    if (timerRef.current) clearInterval(timerRef.current);
+
     timerRef.current = setInterval(() => {
-      nextQuote();
+      setDirection(1);
+      setIndex((prev) => (prev + 1) % quotes.length);
     }, AUTO_SLIDE_INTERVAL);
 
     return () => clearInterval(timerRef.current);
-  }, []);
+  }, [index, quotes]);
 
   if (quotes.length === 0) {
-    return <p className="text-gray-700 p-6 text-lg">No quotes available.</p>;
+    return <p className="text-gray-700 p-6 text-lg">Loading quotes...</p>;
   }
 
   return (

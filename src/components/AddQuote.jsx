@@ -16,7 +16,7 @@ const AddQuotes = () => {
     };
 
     try {
-      const res = await fetch("mysql://us7y7q2dqpsunjjh:9RsXkn3P886FvrBiSpTM@bx1hro7vzhrd42deescx-mysql.services.clever-cloud.com:3306/bx1hro7vzhrd42deescx/api/quotes/addquote", {
+      const res = await fetch("https://app-f07ade1a-3741-4ab8-8393-c232b850346b.cleverapps.io/api/quotes/addquote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
