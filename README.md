@@ -6,7 +6,7 @@ A small web app that displays short quotes or snippets from books in a "shorts" 
 
 ## Demo
 
-Check out the live demo here: [Live URL](https://quote-app-blond.vercel.app/)
+Check out the live demo here: [Live URL](https://quote-app-ow4a.vercel.app/)
 
 ---
 
